@@ -175,7 +175,8 @@ Confirm the exact execution order and required parameters from the notebook code
 Conceptual Repository Structure
 Adjust this example to match the files actually present in your GitHub repository.
 
-.
+```
+
 ├── README.md
 ├── setup/
 │   ├── access_adls_using_access_keys
@@ -197,6 +198,8 @@ Adjust this example to match the files actually present in your GitHub repositor
 └── analysis/
     ├── 1.find_dominant_drivers
     └── 2.find_dominant_teams
+
+```
 
 Databricks notebooks may use different file extensions or folders in your actual repository.
 
