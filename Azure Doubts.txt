@@ -1,0 +1,45 @@
+1. Azure Data Factory
+2. Azure Synapse Analytics
+3. Azure Stream Analytics
+4. Azure Event Hubs
+5. Azure Data Lake Storage
+6. Azure Databricks
+
+Question 1:
+types of trigger:
+schedule
+tumbling window
+storage events
+custom events
+
+Question 2:
+what are the activities commonly used when creating pipelines?
+
+Question 3:
+ADF or Synapse Analytics for pipeline?
+
+Question 4:
+ETL or ELT? where the data comes from, Dedicated Pool or spark pool?
+
+what are the linked services used?
+
+data flows usage in production
+
+pipelines, triggers monitoring, email or failure success notification etc
+
+Question 2:
+what are the activities commonly used when creating pipelines?
+get metadata
+copy data
+execute pipeline
+notebook (databricks, azure synapse)
+for each
+data flow
+stored procedure
+
+# Authentication types while creating linked service :|
+access token, 
+managed service identity, - easy to setup (service principal for other areas) 
+user assigned managed identity
+
+Multi Hop Architechture

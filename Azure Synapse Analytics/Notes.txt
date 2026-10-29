@@ -1,0 +1,34 @@
+OPENROWSET function:
+Synapse serverless pool offers a function called OPENROWSET. This function reads the contents of the remote file and returns the result as a set of rules without loading them into tables or creating external tables. OPENROWSET function allows us to read files from Azure Storage. 
+
+It can be reference in the 'FROM' clause of the SQL query.
+
+ex-
+SELECT *
+FROM OPENROWSET(BULK '/folder/*.parquet',
+                DATA_SOURCE='storage', --> Root URL is in LOCATION of DATA SOURCE
+                FORMAT = 'PARQUET') AS [file]
+
+SELECT
+    TOP 100 *
+FROM
+    OPENROWSET(
+        BULK 'https://azsynapseanalyticsdl.dfs.core.windows.net/nyc-taxi-data/raw/taxi_zone.csv',
+        FORMAT = 'CSV',
+ 	PARSER_VERSION = '2.0'
+    ) AS [result]
+
+for abfss:
+
+SELECT
+    TOP 100 *
+FROM
+    OPENROWSET(
+        BULK 'abfss://nyc-taxi-data@azsynapseanalyticsdl.dfs.core.windows.net/raw/taxi_zone.csv',
+        FORMAT = 'CSV',
+ 	PARSER_VERSION = '2.0'
+    ) AS [result]
+
+container name: nyc-taxi-data
+storage account name: azsynapseanalyticsdl (azsynapseanalyticsdl.dfs.core.windows.net)
+followed by folders within the container

@@ -1,0 +1,11 @@
+-- code to see how much data is processed in mb
+select * from sys.dm_external_data_processed;
+
+-- code to get system configuration to see the daily/weekly/monthly data limit in TB
+select * from sys.configurations
+where name like 'Data Processed %';
+
+-- code to set the daily/weekly/monthly data limit in TB(invoking stored procedure)
+sp_set_data_processed_limit
+	@type = 'N'monthly',
+	@limit_tb = 4;

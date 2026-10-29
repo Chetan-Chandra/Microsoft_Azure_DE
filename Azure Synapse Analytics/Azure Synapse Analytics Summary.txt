@@ -1,0 +1,11 @@
+
+Azure Synapse Analytics is a limitless analytics service that brings together data integration, enterprise data warehousing and big data analytics.
+
+Two main features of Azure Synapse Analytics.:
+
+1. it provides a limitless analytics service. With synapse analytics, you can scale your compute as well as storage depending on your data and processing needs. It handles solutions which are able to process few terabytes of data to many petabytes of data at ease. It provides both Serverless and dedicated compute options so you can choose the one that suits your needs.
+
+2. it provides a unified analytics service by bringing data integration, enterprise data warehousing and big data analytics together into one service.
+
+synapseadmin
+Synapse_

@@ -1,0 +1,6 @@
+Unity Catalog only became generally available around late 2022 on Azure.
+Unity Catalog is a databricks offered unified solution for implementing data governance in the Lakehouse.
+
+Data Governance is the process of managing the availability, usability, integrity and security of all the data present in an enterprise.
+
+An enterprise should be able to control access to the data to only the users who should have the access. Because not having the right access control could compromise the customer data and the reputation of the enterprise. A successful implementation of a data governance solution will ensure that the data is trustworthy and not misused. It requires the ability to trace the data back to its source for authenticity and also the ability to audit the usage of the data to ensure that it is not misused. It must help implement privacy regulations such as GDPR, CCPA, etc. Non-compliance with these regulations could land companies with hefty penalties and bad reputation. So it's important that companies implement the right data governance solution.

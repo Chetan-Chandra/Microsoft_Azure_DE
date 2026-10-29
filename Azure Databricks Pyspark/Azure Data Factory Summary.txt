@@ -1,0 +1,9 @@
+Data factory is not a data migration tool. If you are doing one of migrations of data from one database to another, it's easier and faster to use tools such as Azure Database migration service. 
+
+Data Factories meant for loading and transforming data periodically.
+
+Data Factory is not designed for supporting streaming workloads. For that, we can use Azure pass services such as Event Hub, Iot Hub or external applications such as Spark streaming, Kafka etc.
+
+Like other ETL tools with code free development capability, ADF also lacks support for complex transformations. So you should do complex transformations in things like Azure Databricks, or in HD Insight and use Azure Data Factory to only orchestrate the workflow.
+
+Data factory is not a data storage solution. It doesn't store any data. It merely provides the compute required to process our data. Once processed, the data is written to a storage solution such as SQL database or Azure Data Lake or Synapse Analytics or Cosmos DB,

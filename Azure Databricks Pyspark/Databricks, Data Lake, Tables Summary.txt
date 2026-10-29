@@ -1,0 +1,21 @@
+Our data is stored in our Data Lake as files of varying types such as csv, Jason and Parquet.
+In order for Spark to treat this data as tables and columns, we need to register this data in a meta store.
+Meta Store is nothing but a storage for storing the metadata about the data files. For example, things like the location of the file, the format of the data, column names, etc. 
+Spark uses a meta store provided by the Apache Hive project for this, which is called Hive Meta Store. Hive Meta Store is the most commonly used Meta Store in the Data Lake space. 
+When it comes to choosing the storage for hive meta store, we have a choice. We can either choose the Default Databricks managed Meta Store or the External Storage option of your own(Azure SQL, MySQL, MariaDB etc.
+Once we've registered our tables in the hive meta store, we can then use Spark SQL to access these tables.
+
+Summary:
+Data is usually stored in an object storage which is ADLs. 
+Hive Meta Store keeps the information about the file, such as the location, name of the file, table, column, etc..
+When you run a Spark SQL command, Spark uses the meta store to apply the schema and access the files accordingly.
+
+How Databricks organizes databases, tables and views:
+At Databricks Workspace can have a number of databases,they are also referred as schemas. Within a database, they can have a number of tables and views.
+Tables are stored in an object storage which is ADLS.
+
+There are two types of tables in Spark:
+Managed Table and External or Unmanaged Table
+Difference:
+1. In the case of Managed Table, Spark maintains both the metadata in Hive Meta Store and also the data files associated with the table, which is stored in ADLS, whereas in the case of External Tables, Spark only manages the metadata and we manage the data files i.e. we specify the location of the data files and Spark doesn't.
+2. Dropping the table for an External Table doesn't delete the files, whereas in the case of Managed Table, it deletes the files as well as drop the table.

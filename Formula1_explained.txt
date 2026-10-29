@@ -1,0 +1,428 @@
+# Formula 1 Data Engineering Project — Complete Explanation
+
+Your uploaded `Formula1_Merged.pdf` appears to document an end-to-end Formula 1 data engineering project using Azure and Databricks. From the notebook names and code visible in the document, the project focuses on collecting Formula 1 racing data, storing it in cloud storage, organizing it into tables, processing it with Spark, and analyzing racing performance using SQL.
+
+The main purpose is to turn raw Formula 1 data into clean, structured, useful information that can answer questions such as:
+
+- Who are the most dominant Formula 1 drivers?
+- How do drivers and constructors perform across seasons?
+- What happens during races, qualifying sessions, and pit stops?
+- How can raw racing data be transformed into analysis-ready datasets?
+
+This is primarily a data engineering project, with data analysis built on top of the data pipeline. The goal is not just to write queries, but to build a workflow that moves data from its original source to a form suitable for reporting and insights.
+
+One important note: the PDF consists largely of screenshots, so some details are difficult to read. The explanation below distinguishes the components visible in the document from likely broader project goals where appropriate.
+
+## 1. The overall project architecture
+
+1\. Data Sources
+Ergast API and Formula 1 CSV, JSON and other data files
+
+2\. Azure Data Lake Storage (ADLS Gen2)
+Cloud storage for raw, processed and presentation data
+
+3\. Azure Databricks + Apache Spark
+Ingestion, cleaning, transformation, joins and data processing
+
+4\. Data Lakehouse Layers
+Raw tables → Processed data → Presentation tables
+
+5\. Analytics and Insights
+SQL queries, driver standings, constructor comparisons and race performance
+
+This diagram summarizes the architecture implied by the notebooks. The PDF shows the ingestion, storage, transformation and analysis stages; it does not establish that a final Power BI dashboard or every scheduled production job was completed.
+
+## 2. What each tool does, and why it is used
+
+Here is the tool-by-tool explanation, including what you should learn from each.
+
+[Einführung in die Mount/Unmount-APIs in Azure Synapse Analytics - Azure Synapse Analytics | Microsoft Learn](https://images.openai.com/static-rsc-4/BfmSkzw2_9MZ2RMKQqcQjIka-TL4wuuqQbdDD_l0GpxqC7bydoRpUkvKSLMvxvBLBVfOpyg1vpYkzzTsNoA36tKrHvAsm4E5OPDvmcCjxtzvdyanRkNJO-IQf-39EeH1EMwNd5AVAh4ufLCeBG_KBN5XZGKXEgB4lxYJudwPnds?purpose=inline)
+
+1\. Microsoft Azure
+
+Cloud platform
+
+Azure provides the cloud infrastructure where the data is stored and accessed.
+
+- ADLS Gen2: stores the racing datasets in folders or containers.
+- Storage account: provides the underlying cloud storage.
+- Access credentials: allow Databricks to read and write data securely.
+
+Learn: storage accounts, containers, file paths, access permissions and cloud data architecture.
+
+[Getting to Know the Databricks Notebook: A Complete Guide | DataCamp](https://images.openai.com/static-rsc-4/0WmlnFuh6E-Mv-OS7Y8NMHWHPtgV_0kSDYMaze2EPcKplyBZYqC-lJB8ku5fBf2L3BWo9fpsF2C2f3TbHiJdoiyvdab4twBEgNQtT7nyhraApTDY9Qh4pc3m-2tOzTUhns_wqU4udU7a5239nghWf6QsLQRPiPAbSbqAsBaJB3s?purpose=inline)
+
+2\. Azure Databricks
+
+Data engineering workspace
+
+This is the main environment where the project's notebooks execute.
+
+The PDF contains notebooks for ingestion, setup, raw tables, transformations and analysis.
+
+Learn: notebooks, clusters, jobs, workspace organization, notebook execution and orchestration.
+
+[Analysis of Retail Data Insights With PySpark & Databricks -](https://images.openai.com/static-rsc-4/XYN4zOpGSB-WX6xfHcWHELVnT4c5_IjA0PfFSH-t-LMSkLs3Fik_wYJGPVYknhmdKC5hiW-On2zRnbntUw_LKSTSsjfR8KE3iXzLFukdYJwx4i7hiHgMdP2EP9kUU51xtC4jSqGf8bwpFNh1yo3dGOEFV_JLsuNNn-uBL9Qt0fw?purpose=inline)
+
+3\. Apache Spark / PySpark
+
+Data processing engine
+
+Spark processes datasets using DataFrames and supports filtering, selecting columns, joining tables, grouping and aggregating data.
+
+The document shows code using `spark.read`, DataFrame filters, joins and Parquet/Delta formats.
+
+Learn: Python basics, Spark DataFrames, schemas, transformations, joins, aggregations and writing output.
+
+[PostgreSQL GROUP BY Clause](https://images.openai.com/static-rsc-4/3x2HVrbb_wmmigW5T9TXr0RBUG91BKpmRv5MQo1Vvcb3wWLaNMjeNwkCBmmsdoleE4cliGbH0k09mZY2Uq4hhUoUF0Qwphoi17J4Oug7AQZgn0fi_KsTeUJSvI8PWlgFZ91AKkGa93kBFhJjHv796d4dog62DSSkoqPP43Nc57E?purpose=inline)
+
+4\. SQL
+
+Query and table management
+
+SQL is used to create databases and tables, inspect the raw data and calculate racing statistics.
+
+Examples visible in the PDF include `CREATE TABLE`, `SELECT`, `GROUP BY`, `ORDER BY` and filters on race years.
+
+Learn: DDL, DML basics, joins, aggregations, ranking logic and analytical queries.
+
+[Architecture - Delta Lake Documentation](https://images.openai.com/static-rsc-4/g_Gxir6sQxEMa54dMV5Zy7DcuAIXGzUljvGQ2evhHSszadf86xfE7F4YOSRUkAEDD6Ac0QYAti1k0na05dnt8UUiTDqsd5P_yGR2qVPdCJYBxVjLk-nbtz-S9DGalvfQXW0e9J7rNHdjAL6Izdyl-Z0BGvGU5wWxS5GnB6dl_vE?purpose=inline)
+
+5\. Delta Lake and Parquet
+
+Data storage formats
+
+- CSV/JSON: source formats for incoming racing data.
+- Parquet: a columnar format suited to analytical processing.
+- Delta Lake: adds transaction-log-based table management to Parquet data, supporting features such as reliable updates and `MERGE`.
+
+The PDF shows Parquet reads and writes and Delta-format reads and writes in the transformation notebooks.
+
+Learn: file formats, managed versus external tables, Delta tables, overwrite and merge operations.
+
+[How to Make Sense of a New API](https://images.openai.com/static-rsc-4/ylsb13YXCvlNUI4C6VuBWiI9hdQYYaOprr71K1WDZHD37V5Cja8lPN66QSLcN6w158BSTzSlqFs3Jh1Pv57fMrILIAK5Cr419isUMtuQ6sCrHU9lAmlCuNbQWN11n-PEmF9KO4tD3ZHUGPUtzlQYvnDHpzj9mwWnSDIZPKTxuqQ?purpose=inline)
+
+6\. Ergast API / Formula 1 datasets
+
+Data source
+
+The ingestion notebook passes `Ergast API` as a data-source parameter. The project also reads stored CSV and JSON files.
+
+The racing data covers entities such as circuits, races, drivers, constructors, results, qualifying and pit stops.
+
+Learn: APIs and data ingestion concepts, JSON structure, CSV handling, source schemas and data provenance.
+
+The visible material does not establish whether every dataset is fetched live from an API or ingested from files downloaded earlier.
+
+[Mounting & accessing ADLS Gen2 in Azure Databricks using Service Principal and Secret Scopes | by Dhyan Rathore | TDS Archive | Medium](https://images.openai.com/static-rsc-4/bLPSvFctoO1yQyFvPzrUXpsiVbkSdveOzY3di_tQNo86rF1QTxtJsvY9R6rip4o5eJlpSZr9xrDrpsRmYBCvMUIDQOxwr220S1YSBrbGTsguBP4wH3aZvOFuAIDTvU6xrkUZ8mpZLA4SoELVj49SijDcHe4xLd0wz3t0Y55BJG4?purpose=inline)
+
+7\. Databricks utilities: `dbutils`
+
+Configuration and orchestration
+
+The notebooks use:
+
+- `dbutils.notebook.run()` to call other notebooks.
+- `dbutils.widgets` to receive parameters such as file date and data source.
+- `dbutils.secrets.get()` to retrieve a stored storage credential.
+
+Learn: parameterized notebooks, reusable pipelines, secret scopes and passing arguments between notebook tasks.
+
+These are distinct skills: Azure provides infrastructure, Databricks provides the workspace, Spark processes data, SQL queries it, Delta Lake manages analytical tables, and `dbutils` helps configure and coordinate notebook execution.
+
+## 3. What has been done in the project?
+
+Based on the notebook names and code visible in your PDF, the work is divided into several stages.
+
+### Stage 1 — Set up cloud access
+
+Documented
+
+The setup notebooks demonstrate connecting Databricks to Azure Data Lake Storage.
+
+The PDF shows two approaches:
+
+- `access_adls_using_access_keys`
+- `access_adls_using_cluster_scoped_credentials`
+
+It also shows a notebook using `dbutils.secrets.get()` to retrieve a storage account key from a Databricks secret scope.
+
+Purpose: allow Spark to read Formula 1 files from cloud storage and write processed results back.
+
+What you learn: Azure storage access, Spark configuration, secret scopes and authentication concepts.
+
+Security lesson: credentials should be stored securely rather than hardcoded into notebooks. The project demonstrates secret retrieval, although the PDF also contains an access-key-based configuration example.
+
+### Stage 2 — Ingest the Formula 1 data
+
+Individual ingestion notebooks shown
+
+The PDF includes a master notebook called `0.ingest_all_files` and separate ingestion notebooks for individual datasets.
+
+| Notebook or dataset          | What it does                         |
+| ---------------------------- | ------------------------------------ |
+| `0.ingest_all_files`         | Calls multiple ingestion notebooks   |
+| `1.ingest_circuits_file`     | Ingests circuit information          |
+| `2.ingest_races_file`        | Ingests race information             |
+| `3.ingest_constructors_file` | Ingests constructor/team information |
+| `4.ingest_drivers_file`      | Ingests driver information           |
+| `5.ingest_results_file`      | Ingests race-result information      |
+| `6.ingest_pit_stops_file`    | Ingests pit-stop information         |
+| `7.ingest_lap_times_file`    | Ingests lap-time data                |
+
+The PDF also shows qualifying data being loaded in the raw-table section.
+
+The ingestion notebooks use parameters such as a data source and file date. For example, the race ingestion code defines a schema, reads a CSV file and selects the required columns.
+
+Purpose: make the original racing data available in a consistent location and structure.
+
+What you learn: ingestion design, notebook parameters, CSV and JSON reading, schema definitions, file naming and orchestrating multiple data-loading tasks.
+
+### Stage 3 — Create the raw tables
+
+Documented
+
+The notebook `1.create_raw_tables` creates a database named `f1_raw` and tables for the source datasets.
+
+Examples visible in the PDF include:
+
+- `f1_raw.circuits`
+- `f1_raw.races`
+- `f1_raw.constructors`
+- `f1_raw.drivers`
+- `f1_raw.results`
+- `f1_raw.pit_stops`
+- `f1_raw.lap_times`
+- `f1_raw.qualifying`
+
+The tables define columns such as driver IDs, race IDs, constructor IDs, positions, points, lap times and race dates.
+
+The notebook also demonstrates handling different file structures: CSV, single-line JSON, multiline JSON and multiple files.
+
+Purpose: create a queryable representation of the original datasets without immediately combining everything into one analytical table.
+
+What you learn: SQL table creation, data types, external file paths, JSON options and reading raw data with Spark.
+
+### Stage 4 — Transform the data
+
+Transformation code shown
+
+The `trans` notebooks contain more advanced data engineering work.
+
+The visible `1.race_results` notebook demonstrates a process along these lines:
+
+1. Read data from processed datasets.
+2. Rename columns to make their meanings clearer.
+3. Join races with circuits and results.
+4. Join driver and constructor information.
+5. Add metadata such as creation timestamps and file dates.
+6. Write the resulting data in Parquet format and save it as a presentation table.
+
+The code also shows the use of Spark functions and Delta-format tables.
+
+Purpose: turn separate datasets into a unified view of race performance.
+
+What you learn: DataFrame transformations, data joins, column renaming, derived columns, timestamps, output formats and building a reusable transformation pipeline.
+
+### Stage 5 — Build the processed layer
+
+Layer and paths documented
+
+The notebooks reference a `processed` folder and the `f1_processed` database.
+
+This layer sits between the original raw datasets and the final analytical outputs. The visible code reads processed datasets using Parquet and Delta formats.
+
+The project also contains a demonstration notebook, `1.filter_demo`, which filters races by year and round using a Spark DataFrame.
+
+For example, the demonstrated logic filters races from 2019 where the round is five or earlier.
+
+Purpose: prepare and organize data for downstream transformations without repeatedly working directly from the original files.
+
+What you learn: intermediate data layers, DataFrame filtering, schema consistency and efficient analytical file formats.
+
+### Stage 6 — Create presentation tables
+
+Analytical table creation shown
+
+The presentation layer is intended to contain datasets that are easier to query for reporting and business questions.
+
+The PDF shows a presentation output for race results and a notebook for driver standings. It also shows Delta-format writes and a function named `merge_delta_data` being used in the driver standings workflow.
+
+The driver standings logic groups results by year and driver, calculates total points, counts wins and uses a window ranking function to rank drivers.
+
+Purpose: turn the transformed data into ready-to-query analytical tables.
+
+What you learn: aggregations, window functions, ranking, incremental loading patterns and Delta table updates.
+
+### Stage 7 — Analyze driver and team performance
+
+SQL analysis notebooks shown
+
+Two analysis notebooks are visible:
+
+`1.find_dominant_drivers`
+
+Queries the presentation race-results table and groups driver performance by year. The visible queries calculate metrics such as total races, wins and total points, with year filters in some queries.
+
+The objective is to identify drivers who performed especially well in a given period.
+
+`2.find_dominant_teams`
+
+Uses team-level aggregations and visible filtering conditions to identify constructors with strong performance.
+
+The objective is to compare teams using their accumulated racing results.
+
+What you learn: analytical SQL, grouping, aggregate functions, filtering, performance comparisons and converting data into meaningful insights.
+
+These are analytical notebooks, not evidence of a completed machine-learning model. The visible project is primarily about data engineering and SQL-based analysis.
+
+## 4. Understand the three data layers
+
+One of the most important concepts in this project is the separation of raw, processed and presentation data.
+
+Layer 1: Raw — `f1_raw`
+
+Original data storage
+
+Contains source-oriented tables for drivers, races, circuits, results and other datasets. The focus is on bringing data into a queryable form while retaining its original structure as much as possible.
+
+Layer 2: Processed — `f1_processed`
+
+Organized and prepared data
+
+Stores data in the intermediate layer used by downstream transformations. The visible notebooks read processed datasets from Parquet and Delta paths.
+
+Layer 3: Presentation — `f1_presentation`
+
+Analysis-ready data
+
+Contains derived datasets such as race results and driver standings. These are designed to make reporting and analytical queries easier.
+
+This resembles a layered lakehouse architecture, often described using the Bronze, Silver and Gold pattern:
+
+| Project terminology | Common equivalent | Main purpose               |
+| ------------------- | ----------------- | -------------------------- |
+| Raw                 | Bronze            | Ingest source data         |
+| Processed           | Silver            | Prepare and organize data  |
+| Presentation        | Gold              | Serve analytical use cases |
+
+The mapping is conceptual: the PDF uses `raw`, `processed` and `presentation`, not necessarily the Bronze/Silver/Gold names themselves.
+
+## 5. Which skills should you learn, and in what order?
+
+If you are learning this project from scratch, follow this sequence.
+
+## Your learning checklist
+
+0 of 8
+
+1\. Python fundamentals
+
+Variables, functions, dictionaries, lists and basic file handling.
+
+Tool: Python
+
+2\. SQL fundamentals
+
+SELECT, WHERE, GROUP BY, joins, aggregates and CREATE TABLE.
+
+Tool: SQL
+
+3\. Azure storage
+
+Storage accounts, ADLS Gen2, containers, file paths and authentication.
+
+Tool: Microsoft Azure
+
+4\. Databricks basics
+
+Workspaces, notebooks, clusters and running code cells.
+
+Tool: Azure Databricks
+
+5\. Spark and PySpark
+
+DataFrames, schemas, filters, joins, transformations and aggregations.
+
+Tool: Apache Spark
+
+6\. Data ingestion
+
+Read CSV/JSON, use schemas, pass parameters and load multiple datasets.
+
+Tool: PySpark + dbutils
+
+7\. Delta Lake and pipelines
+
+Delta tables, MERGE, incremental processing and orchestration.
+
+Tool: Delta Lake + Databricks
+
+8\. Analytics
+
+Driver standings, race results, team comparisons and analytical queries.
+
+Tool: SQL + Spark
+
+You do not need to master every Azure feature before beginning. Concentrate on Python, SQL and Spark first, then learn how Azure and Databricks connect them into a pipeline.
+
+## 6. Are all parts of the project completed successfully?
+
+There is an important distinction between code being present in a notebook and the complete workflow running successfully.
+
+The first ingestion notebook contains calls to multiple other notebooks, but the PDF also shows `WorkflowException` errors stating that certain notebooks could not be accessed. Examples include the constructor and driver ingestion notebook paths.
+
+This suggests that at least some orchestration attempts failed because the referenced notebook could not be found or accessed by the execution identity. The document does not establish whether these problems were fixed later.
+
+The PDF does show substantial implementation code for raw-table creation, transformations and analytical outputs. However, I cannot confirm from these screenshots alone that:
+
+- Every ingestion notebook ran successfully end to end.
+- All datasets were loaded without missing records.
+- The entire pipeline was scheduled and automated successfully.
+- A Power BI dashboard or another final visualization layer was built.
+- The final results were validated against an authoritative source.
+
+Those are items to verify before presenting the project as a fully operational production pipeline.
+
+## 7. How to explain this project in an interview
+
+Here is a concise project description you can use as a starting point.
+
+### Project: Formula 1 Data Engineering Pipeline Using Azure Databricks
+
+**Objective:** Build a data engineering pipeline that collects Formula 1 racing data, stores it in Azure Data Lake Storage Gen2, transforms it using Apache Spark, and prepares analysis-ready datasets for understanding driver, constructor and race performance.
+
+**Technologies used:**
+
+- **Microsoft Azure:** Cloud infrastructure and data storage.
+- **Azure Data Lake Storage Gen2:** Stores raw and processed racing datasets.
+- **Azure Databricks:** Provides the notebook environment for implementing the pipeline.
+- **Python and PySpark:** Read, clean, transform, join and aggregate datasets.
+- **SQL:** Creates raw tables and analyzes racing performance.
+- **Delta Lake and Parquet:** Support structured analytical storage and table updates.
+- **Databricks utilities:** Manage notebook parameters, retrieve secrets and orchestrate notebook execution.
+- **Ergast API and racing datasets:** Provide Formula 1 information such as races, drivers, constructors, results, qualifying and pit stops.
+
+**Project workflow:**
+
+1. Configure access between Databricks and Azure Data Lake Storage.
+2. Ingest Formula 1 datasets through individual parameterized notebooks.
+3. Create raw database tables for the different racing datasets.
+4. Prepare and transform the data using Spark and intermediate storage.
+5. Join related datasets to construct comprehensive race-result information.
+6. Create presentation tables, including driver standings.
+7. Analyze dominant drivers and constructors using SQL aggregations and ranking logic.
+
+**Expected outcome:** A reusable, layered data pipeline that converts separate Formula 1 datasets into structured analytical tables, making historical racing performance easier to query and compare.
+
+This is a source-grounded description of the implementation shown in the PDF; it should not be interpreted as confirmation that every pipeline task completed successfully.
+
+## 8. The big picture
+
+The central lesson of this project is how data moves through an actual data engineering workflow:
+
+Source data → Cloud storage → Ingestion → Transformation → Structured tables → Analytics.
+
+You are learning how to use Azure for infrastructure, Databricks for development and execution, Spark for processing, SQL for querying and analysis, and Delta Lake for managing analytical data.
+
+The Formula 1 subject provides a real-world dataset to practice those concepts. The deeper objective is to develop skills that can be applied to many other industries, such as finance, retail, healthcare and logistics, where raw data must be collected, processed and converted into reliable information.
